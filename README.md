@@ -29,3 +29,5 @@ To run the `streamlit` based web application, execute the following command in y
 streamlit run streamlit_app.py
 ```
 This will open a new tab in your web browser with the handwriting recognition app.
+
+You can also access the deployed Streamlit app directly at: [https://hw4-deep-learning-aigc-2g27aaoibmgvwp3id4zcvq.streamlit.app/](https://hw4-deep-learning-aigc-2g27aaoibmgvwp3id4zcvq.streamlit.app/)
