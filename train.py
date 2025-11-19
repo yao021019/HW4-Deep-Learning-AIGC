@@ -1,16 +1,25 @@
 import numpy as np
+import tensorflow as tf
 from model import NeuralNetwork
 from sklearn.metrics import accuracy_score
 
 def train_model():
     """
-    Loads the preprocessed MNIST data, trains the neural network,
+    Loads the MNIST dataset, preprocesses it, trains the neural network,
     evaluates its accuracy, and saves the trained model.
     """
-    # Load the preprocessed data
-    data = np.load('mnist_data.npz')
-    x_train, y_train = data['x_train'], data['y_train']
-    x_test, y_test = data['x_test'], data['y_test']
+    # Load the MNIST dataset
+    (x_train_raw, y_train_raw), (x_test_raw, y_test_raw) = tf.keras.datasets.mnist.load_data()
+
+    # Preprocess the data
+    x_train = x_train_raw.astype('float32') / 255.0
+    x_test = x_test_raw.astype('float32') / 255.0
+
+    x_train = x_train.reshape(x_train.shape[0], -1)
+    x_test = x_test.reshape(x_test.shape[0], -1)
+
+    y_train = tf.keras.utils.to_categorical(y_train_raw, num_classes=10)
+    y_test = tf.keras.utils.to_categorical(y_test_raw, num_classes=10)
 
     # Define model parameters
     input_size = x_train.shape[1]
@@ -33,7 +42,7 @@ def train_model():
     # Evaluate the model
     print("Evaluating the model...")
     y_pred_encoded = nn.predict(x_test)
-    y_test_labels = np.argmax(y_test, axis=1)
+    y_test_labels = y_test_raw # Use raw labels for accuracy_score
     accuracy = accuracy_score(y_test_labels, y_pred_encoded)
     print(f'Accuracy: {accuracy * 100:.2f}%')
 

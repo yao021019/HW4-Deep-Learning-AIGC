@@ -5,17 +5,11 @@ import numpy as np
 from PIL import Image, ImageOps
 import pandas as pd
 from model import NeuralNetwork
-from prepare_data import load_and_preprocess_data
 from train import train_model
 
 # Load the trained model
 @st.cache_resource
 def load_model():
-    # Ensure mnist_data.npz exists
-    if not os.path.exists('mnist_data.npz'):
-        st.write("Preparing MNIST data... This might take a moment.")
-        load_and_preprocess_data()
-    
     # Ensure model.npz exists
     if not os.path.exists('model.npz'):
         st.write("Training model... This might take a few minutes.")

@@ -4,3 +4,4 @@ matplotlib
 Pillow
 streamlit
 streamlit-drawable-canvas
+scikit-learn
